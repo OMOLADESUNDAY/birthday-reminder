@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { BirthdayData } from './component/data';
+import { useState } from 'react';
+import Birthday from './component/Birthday';
 
 function App() {
+  const [birthdayData, setBirthdatData]=useState(BirthdayData)
+  const dlenght=birthdayData.length
+  const clickHandler=()=>{
+    setBirthdatData((prevdata)=>{
+      prevdata=[]
+      return prevdata
+    })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className='birthtxt'>{dlenght} Birthday Reminder</h1>
+      <div className='birthdayContainer'>
+      {birthdayData.map((birth)=>{
+       
+       const {id,age,img,name}=birth
+       const dataTosend = {id,age,img,name,dlenght}
+       return(
+         <Birthday key={id} birthe={dataTosend}/>
+       )
+    })}
+    <div className='btnContainer'>
+    <button className='btn' onClick={clickHandler}>Clear</button>
+    </div>
+     
+      </div>
+       
+     
     </div>
   );
 }
